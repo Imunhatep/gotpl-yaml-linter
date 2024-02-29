@@ -1,0 +1,15 @@
+{{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
+{{- include  "isControllerTagValid" . -}}
+{{- include "ingress-nginx.labels" . | nindent 4 }}
+{{- with .Values.controller.labels }}
+{{- toYaml . | nindent 4 }}
+{{- end }}
+{{- if .Values.controller.annotations }}
+{{- range $key, $value := .Values.controller.podAnnotations }}
+{{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}
+{{- include "ingress-nginx.selectorLabels" . | nindent 6 }}
+{{- if not .Values.controller.autoscaling.enabled }}
+{{- end }}
+{{- end }}

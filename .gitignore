@@ -1,0 +1,14 @@
+# Golang
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+vendor/
+
+# IDEA editor
+.idea/
+*.iml
+*.iws
+*.ipr
+out/

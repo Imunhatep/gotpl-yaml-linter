@@ -1,0 +1,121 @@
+{{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
+{{- include  "isControllerTagValid" . -}}
+{{- include "ingress-nginx.labels" . | nindent 4 }}
+{{- with .Values.controller.labels }}
+{{- toYaml . | nindent 4 }}
+{{- end }}
+{{- if .Values.controller.annotations }}
+{{- end }}
+{{- include "ingress-nginx.selectorLabels" . | nindent 6 }}
+{{- if not .Values.controller.autoscaling.enabled }}
+{{- end }}
+
+{{- if .Values.controller.updateStrategy }}
+{{ toYaml .Values.controller.updateStrategy | nindent 4 }}
+{{- end }}
+{{- if .Values.controller.podAnnotations }}
+{{- range $key, $value := .Values.controller.podAnnotations }}
+{{ $key }}: {{ $value | quote }}
+{{- end }}
+{{- end }}
+{{- include "ingress-nginx.selectorLabels" . | nindent 8 }}
+{{- with .Values.controller.labels }}
+{{- toYaml . | nindent 8 }}
+{{- end }}
+{{- if .Values.controller.podLabels }}
+{{- toYaml .Values.controller.podLabels | nindent 8 }}
+{{- end }}
+{{- if .Values.controller.dnsConfig }}
+{{- end }}
+{{- if .Values.controller.hostname }}
+{{- end }}
+{{- if .Values.imagePullSecrets }}
+{{- end }}
+{{- if .Values.controller.priorityClassName }}
+{{- end }}
+{{- if or .Values.controller.podSecurityContext .Values.controller.sysctls }}
+{{- end }}
+{{- if .Values.controller.podSecurityContext }}
+{{- toYaml .Values.controller.podSecurityContext | nindent 8 }}
+{{- end }}
+{{- if .Values.controller.sysctls }}
+{{- range $sysctl, $value := .Values.controller.sysctls }}
+{{- end }}
+{{- end }}
+{{- if .Values.controller.shareProcessNamespace }}
+{{- end }}
+{{- with .Values.controller.image }}
+{{- end }}
+{{- if .Values.controller.lifecycle }}
+{{- end }}
+{{- include "ingress-nginx.params" . | nindent 12 }}
+{{- if .Values.controller.enableMimalloc }}
+{{- end }}
+{{- if .Values.controller.extraEnvs }}
+{{- toYaml .Values.controller.extraEnvs | nindent 12 }}
+{{- end }}
+{{- if .Values.controller.startupProbe }}
+{{- end }}
+{{- range $key, $value := .Values.controller.containerPort }}
+{{- if $.Values.controller.hostPort.enabled }}
+{{- end }}
+{{- end }}
+{{- if .Values.controller.metrics.enabled }}
+{{- end }}
+{{- if .Values.controller.admissionWebhooks.enabled }}
+{{- end }}
+{{- range $key, $value := .Values.tcp }}
+{{- if $.Values.controller.hostPort.enabled }}
+{{- end }}
+{{- end }}
+{{- range $key, $value := .Values.udp }}
+{{- if $.Values.controller.hostPort.enabled }}
+{{- end }}
+{{- end }}
+{{- if (or .Values.controller.customTemplate.configMapName .Values.controller.extraVolumeMounts .Values.controller.admissionWebhooks.enabled .Values.controller.extraModules) }}
+{{- if .Values.controller.extraModules }}
+{{- end }}
+{{- if .Values.controller.customTemplate.configMapName }}
+{{- end }}
+{{- if .Values.controller.admissionWebhooks.enabled }}
+{{- end }}
+{{- if .Values.controller.extraVolumeMounts }}
+{{- toYaml .Values.controller.extraVolumeMounts | nindent 12 }}
+{{- end }}
+{{- end }}
+{{- if .Values.controller.resources }}
+{{- end }}
+{{- if .Values.controller.extraContainers }}
+{{ toYaml .Values.controller.extraContainers | nindent 8 }}
+{{- end }}
+{{- if (or .Values.controller.extraInitContainers .Values.controller.extraModules) }}
+{{- if .Values.controller.extraInitContainers }}
+{{ toYaml .Values.controller.extraInitContainers | nindent 8 }}
+{{- end }}
+{{- if .Values.controller.extraModules }}
+{{- range .Values.controller.extraModules }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.controller.hostNetwork }}
+{{- end }}
+{{- if .Values.controller.nodeSelector }}
+{{- end }}
+{{- if .Values.controller.tolerations }}
+{{- end }}
+{{- if .Values.controller.affinity }}
+{{- end }}
+{{- if .Values.controller.topologySpreadConstraints }}
+{{- end }}
+{{- if (or .Values.controller.customTemplate.configMapName .Values.controller.extraVolumeMounts .Values.controller.admissionWebhooks.enabled .Values.controller.extraVolumes .Values.controller.extraModules) }}
+{{- if .Values.controller.extraModules }}
+{{- end }}
+{{- if .Values.controller.customTemplate.configMapName }}
+{{- end }}
+{{- if .Values.controller.admissionWebhooks.enabled }}
+{{- end }}
+{{- if .Values.controller.extraVolumes }}
+{{ toYaml .Values.controller.extraVolumes | nindent 8 }}
+{{- end }}
+{{- end }}
+{{- end }}
