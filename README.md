@@ -128,7 +128,7 @@ metadata:
   {{- if .Values.controller.annotations }}
   annotations: {{ toYaml .Values.controller.annotations | nindent 4 }}
   {{- end }}
-{{- end }
+{{- end }}
 ```
 
 ### Example 3
