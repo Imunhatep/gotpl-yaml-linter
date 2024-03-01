@@ -1,13 +1,10 @@
-### Command-line Flags
-
-- `-path`: Specify the path for listing files (default is current directory).
-- `-filter`: Define the pattern for matching in directories (default is "*.yaml").
-- `-fmt`: Format files in place if set to true.
-
-The program will list files based on the provided criteria and format them if specified.
+# GO template linting for Yaml (Helm) files
+This tool will list files based on the provided criteria and format them if specified with options.
 
 ## How to Run
-Linter tool supports to commands: lint and format
+Linter tool supports to commands: 
+ - lint
+ - format
 
 ```bash
 gotpl-yaml-linter help
@@ -77,14 +74,14 @@ Examples of formatting yaml tpl files
 
 ### Example 1
 #### Input
-```yaml
+```gotemplate
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
 {{- include  "isControllerTagValid" . -}}
     {{- include "ingress-nginx.labels" . | nindent 4 }}
 {{- end }}
 ```
 #### Output
-```yaml
+```gotemplate
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
   {{- include  "isControllerTagValid" . -}}
   {{- include "ingress-nginx.labels" . | nindent 4 }}
@@ -93,7 +90,7 @@ Examples of formatting yaml tpl files
 
 ### Example 2
 #### Input
-```yaml
+```gotemplate
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
 {{- include  "isControllerTagValid" . -}}
 apiVersion: apps/v1
@@ -114,7 +111,7 @@ metadata:
 ```
 
 #### Output
-```yaml
+```gotemplate
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
   {{- include  "isControllerTagValid" . -}}
 apiVersion: apps/v1
@@ -135,7 +132,7 @@ metadata:
 ```
 ### Example 3
 #### Input
-```yaml
+```gotemplate
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
 {{- include  "isControllerTagValid" . -}}
     {{- include "ingress-nginx.labels" . | nindent 4 }}
@@ -154,7 +151,7 @@ metadata:
 ```
 
 #### Output
-```yaml
+```gotemplate
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
   {{- include  "isControllerTagValid" . -}}
   {{- include "ingress-nginx.labels" . | nindent 4 }}
