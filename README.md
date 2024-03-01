@@ -118,18 +118,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    {{- include "ingress-nginx.labels" . | nindent 4 }}
+  {{- include "ingress-nginx.labels" . | nindent 4 }}
     app.kubernetes.io/component: controller
-    {{- with .Values.controller.labels }}
+  {{- with .Values.controller.labels }}
     {{- toYaml . | nindent 4 }}
-    {{- end }}
+  {{- end }}
   name: {{ include "ingress-nginx.controller.fullname" . }}
   namespace: {{ .Release.Namespace }}
   {{- if .Values.controller.annotations }}
   annotations: {{ toYaml .Values.controller.annotations | nindent 4 }}
   {{- end }}
-{{- end }}
+{{- end }
 ```
+
 ### Example 3
 #### Input
 ```gotemplate
