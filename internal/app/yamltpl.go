@@ -1,7 +1,8 @@
-package internal
+package app
 
 import (
 	"fmt"
+	"github.com/rs/zerolog/log"
 	"os"
 	"regexp"
 	"strings"
@@ -32,21 +33,21 @@ func isNonControlStructure(line string) bool {
 	return nonControlStructure.MatchString(lineWithoutLeadingSpaces)
 }
 
-func FormatGotpl(data string) (string, error) {
-	lines := strings.Split(data, "\n")
+func FormatYamlTpl(yamlTpl string) (string, error) {
+	lines := strings.Split(yamlTpl, "\n")
 
 	indentLevel := 0
 	var formattedLines []string
 	for _, line := range lines {
-		trimmed := strings.TrimSpace(line)
+		trimmed := strings.TrimSpace(strings.Replace(line, "\t", "\n", -1))
 		if isStartControlStructure(trimmed) {
 			formattedLines = append(formattedLines, formatLine(line, indentLevel))
 			indentLevel++
-		} else if isEndControlStructure(trimmed) {
-			indentLevel--
-			formattedLines = append(formattedLines, formatLine(line, indentLevel))
 		} else if isNonControlStructure(trimmed) {
 			// Non-control structures and empty lines are indented according to their current block level
+			formattedLines = append(formattedLines, formatLine(line, indentLevel))
+		} else if isEndControlStructure(trimmed) {
+			indentLevel--
 			formattedLines = append(formattedLines, formatLine(line, indentLevel))
 		} else {
 			// Regular lines that are not control structures or non-control structures are treated as text
@@ -57,26 +58,31 @@ func FormatGotpl(data string) (string, error) {
 	return strings.Join(formattedLines, "\n"), nil
 }
 
-func FormatFilesInPath(file string, format bool) (bool, error) {
+func FormatYamlTplFile(file string, format, output bool) (bool, error) {
 	original, err := os.ReadFile(file)
 	if err != nil {
 		return false, err
 	}
 
-	data, err := FormatGotpl(string(original))
+	data, err := FormatYamlTpl(string(original))
 	if err != nil {
 		return false, err
 	}
 
+	// output expected file formatting
+	if output {
+		fmt.Printf("\nexpected yaml [%s] tpl formtting:\n%s\n\n", file, data)
+	}
+
 	// yaml are invalid
 	if string(original) == data {
-		fmt.Println("yaml is valid: ", file)
+		log.Info().Str("file", file).Msgf("yaml template is valid")
 		return true, nil
 	}
 
 	// validate, do not change files
 	if !format {
-		fmt.Println("error! yaml is invalid: ", file)
+		log.Error().Str("file", file).Msgf("error! yaml is invalid")
 		return false, nil
 	}
 
@@ -85,7 +91,7 @@ func FormatFilesInPath(file string, format bool) (bool, error) {
 		return false, err
 	}
 
-	fmt.Println("yaml linted:", file)
+	log.Info().Str("file", file).Msg("linted")
 
 	return true, nil
 }

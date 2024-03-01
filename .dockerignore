@@ -1,0 +1,17 @@
+# Git
+.git
+
+# Local directories
+bin/
+build/
+charts/
+
+# IDE files
+.fleet/
+.idea
+*.iml
+
+# CICD
+.gitlab-ci/**
+.gitlab-ci.yml
+Jenkinsfile
