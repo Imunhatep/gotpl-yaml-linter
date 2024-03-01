@@ -77,14 +77,14 @@ Examples of formatting yaml tpl files
 
 ### Example 1
 #### Input
-```
+```yaml
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
 {{- include  "isControllerTagValid" . -}}
     {{- include "ingress-nginx.labels" . | nindent 4 }}
 {{- end }}
 ```
 #### Output
-```
+```yaml
 {{- if or (eq .Values.controller.kind "Deployment") (eq .Values.controller.kind "Both") -}}
   {{- include  "isControllerTagValid" . -}}
   {{- include "ingress-nginx.labels" . | nindent 4 }}
