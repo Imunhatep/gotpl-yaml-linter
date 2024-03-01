@@ -1,4 +1,4 @@
-# GO template linting for Yaml (Helm) files
+# GoTemplate linting for yaml (Helm) files
 This tool will list files based on the provided criteria and format them if specified with options.
 
 ## How to Run
