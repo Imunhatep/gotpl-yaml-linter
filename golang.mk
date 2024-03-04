@@ -94,8 +94,8 @@ clean:
 	rm mocks/ -rvf
 
 .PHONY: docker-test
-test:
-	$(DOCKER) build -t ${IMAGE_ORG}:test -f build/test/Dockerfile .
+docker-test:
+	$(DOCKER) build -t gotpl_linter:test -f build/test/Dockerfile .
 
 .PHONY: update-deps
 update-deps:
