@@ -7,8 +7,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// FormatCommand is a command for formatting yaml tpl files
 type FormatCommand struct{}
 
+// Command returns cli.Command for format command
 func (c FormatCommand) Command() *cli.Command {
 	return &cli.Command{
 		Name:      "fmt",

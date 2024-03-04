@@ -4,8 +4,10 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// LintCommand is a command for linting yaml tpl files
 type LintCommand struct{}
 
+// Command returns a cli.Command instance
 func (c LintCommand) Command() *cli.Command {
 	return &cli.Command{
 		Name:      "lint",

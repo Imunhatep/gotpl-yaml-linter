@@ -33,6 +33,7 @@ func isNonControlStructure(line string) bool {
 	return nonControlStructure.MatchString(lineWithoutLeadingSpaces)
 }
 
+// FormatYamlTpl formats a yaml template string
 func FormatYamlTpl(yamlTpl string) (string, error) {
 	lines := strings.Split(yamlTpl, "\n")
 
@@ -58,6 +59,7 @@ func FormatYamlTpl(yamlTpl string) (string, error) {
 	return strings.Join(formattedLines, "\n"), nil
 }
 
+// FormatYamlTplFile formats a yaml file
 func FormatYamlTplFile(file string, format, output bool) (bool, error) {
 	original, err := os.ReadFile(file)
 	if err != nil {

@@ -6,6 +6,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// NewApp application entrypoint
 func NewApp() *cli.App {
 	cmd := cli.NewApp()
 	cmd.EnableBashCompletion = true

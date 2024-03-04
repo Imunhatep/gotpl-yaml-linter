@@ -5,6 +5,8 @@
 bin/
 build/
 charts/
+dist/
+vendor/
 
 # IDE files
 .fleet/
