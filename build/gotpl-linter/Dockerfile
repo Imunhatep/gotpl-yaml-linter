@@ -15,7 +15,7 @@ ADD . /project/
 WORKDIR /project/
 
 RUN mkdir -p ./bin \
-    && env GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o ./bin/yamltpl_linter_${TARGETOS}-${TARGETARCH} -ldflags "-s -w" ./cmd/cli/main.go
+    && env GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o ./bin/gotpl_linter_${TARGETOS}-${TARGETARCH} -ldflags "-s -w" ./cmd/gotpl-linter/main.go
 
 FROM hub.rms.evolutiongaming.com/hub/alpine:3.19
 
@@ -23,13 +23,13 @@ RUN apk add --update bash ca-certificates curl
 
 ENV GOMEMLIMIT=256MiB
 
-COPY --from=builder /project/bin/yamltpl_linter_${TARGETOS}-${TARGETARCH}  /usr/bin/yamltpl_linter
+COPY --from=builder /project/bin/gotpl_linter_${TARGETOS}-${TARGETARCH}  /usr/bin/gotpl_linter
 
-RUN chmod +x /usr/bin/yamltpl_lint \
+RUN chmod +x /usr/bin/gotpl_lint \
     && adduser -D service
 
 USER service
 WORKDIR /home/service
 
-CMD ["yamltpl_linter", "lint"]
+CMD ["gotpl_linter", "lint"]
 ENTRYPOINT []

@@ -11,8 +11,8 @@ type LintCommand struct{}
 func (c LintCommand) Command() *cli.Command {
 	return &cli.Command{
 		Name:      "lint",
-		Usage:     "yaml tpl linting",
-		UsageText: "Example: bin/yamltpl_{os}-{arch} -v 10 lint --path ./templates/ --filter *.yaml",
+		Usage:     "yaml gotpl linting",
+		UsageText: "Example: gotpl_linter -v 10 lint --path ./templates --filter *.yaml",
 		Flags: []cli.Flag{
 			&cli.PathFlag{
 				Name:        "path",
