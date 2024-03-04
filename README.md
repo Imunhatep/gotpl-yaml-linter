@@ -1,6 +1,16 @@
 # GoTemplate linting for yaml (Helm) files
 This tool will list files based on the provided criteria and format them if specified with options.
 
+## How to install
+Use go install command, i.e.:
+```bash
+go install github.com/imunhatep/gotpl-yaml-linter/cmd/gotpl-linter@latest
+
+gotpl-linter --help
+```
+
+Project built using go1.22
+
 ## How to Run
 Linter tool supports to commands: 
  - lint

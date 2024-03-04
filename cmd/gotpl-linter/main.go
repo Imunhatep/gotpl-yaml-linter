@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/cybozu-go/well"
 	"github.com/imunhatep/gotpl-yaml-linter/internal"
 	command "github.com/imunhatep/gotpl-yaml-linter/internal/commands"
 	"github.com/rs/zerolog/log"
@@ -11,21 +10,17 @@ import (
 )
 
 func main() {
-	well.Go(func(ctx context.Context) error {
-		app := internal.NewApp()
-		app.Commands = []*cli.Command{
-			command.FormatCommand{}.Command(),
-			command.LintCommand{}.Command(),
-		}
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-		err := app.RunContext(ctx, os.Args)
-		if err != nil {
-			log.Error().Err(err).Msg("yaml tpl linting failed")
-		}
+	app := internal.NewApp()
+	app.Commands = []*cli.Command{
+		command.FormatCommand{}.Command(),
+		command.LintCommand{}.Command(),
+	}
 
-		return err
-	})
-
-	well.Stop()
-	well.Wait()
+	err := app.RunContext(ctx, os.Args)
+	if err != nil {
+		log.Error().Err(err).Msg("yaml tpl linting failed")
+	}
 }
