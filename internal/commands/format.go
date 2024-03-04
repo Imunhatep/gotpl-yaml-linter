@@ -15,7 +15,7 @@ func (c FormatCommand) Command() *cli.Command {
 	return &cli.Command{
 		Name:      "fmt",
 		Usage:     "yaml tpl format ",
-		UsageText: "Example: bin/yamltpl_{os}-{arch} -v 10 fmt --path ./templates/ --filter *.yaml",
+		UsageText: "Example: gotpl_linter -v 10 fmt --path ./templates --filter *.yaml",
 		Flags: []cli.Flag{
 			&cli.PathFlag{
 				Name:        "path",
