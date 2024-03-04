@@ -1,11 +1,15 @@
 # Golang
-bin/
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-vendor/
+/vendor
+/gotpl-linter
+/gotpl-linter-*
+/dist
+/releases
+/mocks
 
 # IDEA editor
 .idea/
