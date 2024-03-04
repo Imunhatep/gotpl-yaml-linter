@@ -10,9 +10,9 @@ import (
 func NewApp() *cli.App {
 	cmd := cli.NewApp()
 	cmd.EnableBashCompletion = true
-	cmd.Name = "yamltpl_linter"
+	cmd.Name = "gotpl_linter"
 	cmd.Usage = "GoLang template for yaml formatting and linting tool"
-	cmd.UsageText = "bin/yamltpl_linter_{os}-{arch} [command] [subcommand] [command options]"
+	cmd.UsageText = "gotpl_linter [command] [subcommand] [command options]"
 	cmd.Description = "https://github.com/imunhatep/gotpl-yaml-linter/README.md"
 	cmd.Before = func(ctx *cli.Context) error {
 		verbose := ctx.Int("verbose")
