@@ -11,7 +11,7 @@ import (
 var controlStructureStart = regexp.MustCompile(`^{{-?\s*(if|range|with|define)\s`)
 var controlStructureContinue = regexp.MustCompile(`^{{-?\s*(else)\s`)
 var controlStructureEnd = regexp.MustCompile(`^{{-?\s*end\s*-?}}`)
-var nonControlStructure = regexp.MustCompile(`^{{-?\s*(include|toYaml|nindent)\s`)
+var nonControlStructure = regexp.MustCompile(`^{{-?\s*(include|toYaml|nindent|print)\s`)
 
 // FormatYamlTpl formats a yaml template string
 func FormatYamlTpl(yamlTpl string) (string, error) {
