@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-var controlStructureStart = regexp.MustCompile(`^{{-?\s*(if|range|with)\s`)
+var controlStructureStart = regexp.MustCompile(`^{{-?\s*(if|range|with|define)\s`)
 var controlStructureEnd = regexp.MustCompile(`^{{-?\s*end\s*-?}}`)
 var nonControlStructure = regexp.MustCompile(`^{{-?\s*(include|toYaml|nindent)\s`)
 
