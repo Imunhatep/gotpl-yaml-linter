@@ -39,7 +39,7 @@ func FormatYamlTpl(yamlTpl string) (string, error) {
 
 	indentLevel := 0
 	var formattedLines []string
-	for _, line := range lines {
+	for i, line := range lines {
 		trimmed := strings.TrimSpace(strings.Replace(line, "\t", "\n", -1))
 		if isStartControlStructure(trimmed) {
 			formattedLines = append(formattedLines, formatLine(line, indentLevel))
@@ -48,7 +48,14 @@ func FormatYamlTpl(yamlTpl string) (string, error) {
 			// Non-control structures and empty lines are indented according to their current block level
 			formattedLines = append(formattedLines, formatLine(line, indentLevel))
 		} else if isEndControlStructure(trimmed) {
+			// End control structures are indented according to their current block level
 			indentLevel--
+
+			if indentLevel < 0 {
+				indentLevel = 0
+				log.Warn().Msgf("Seems closing structure has no opening. Invalid gotpl structure at line ~%d: %s", i, line)
+			}
+
 			formattedLines = append(formattedLines, formatLine(line, indentLevel))
 		} else {
 			// Regular lines that are not control structures or non-control structures are treated as text

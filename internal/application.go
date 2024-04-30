@@ -4,6 +4,7 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/urfave/cli/v2"
+	"os"
 )
 
 // NewApp application entrypoint
@@ -35,6 +36,8 @@ func NewApp() *cli.App {
 }
 
 func setLogLevel(level int) {
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+
 	switch level {
 	case 0:
 		zerolog.SetGlobalLevel(zerolog.FatalLevel)

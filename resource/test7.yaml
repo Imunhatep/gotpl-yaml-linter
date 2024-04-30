@@ -15,3 +15,5 @@ metadata:
   annotations: {{ toYaml .Values.controller.annotations | nindent 4 }}
   {{- end }}
 {{- end }}
+# end of structure without opening
+{{- end }}
