@@ -1,5 +1,3 @@
-# Source: https://github.com/rebuy-de/golang-template
-
 TARGET?="./cmd/gotpl-linter"
 PACKAGE=$(shell GOPATH= go list $(TARGET))
 NAME=$(shell echo $(PACKAGE) | awk -F "/" '{print $$NF}')

@@ -1,4 +1,4 @@
-FROM hub.rms.evolutiongaming.com/hub/golang:1.22.0-alpine3.19 AS builder
+FROM golang:1.22.0-alpine3.19 AS builder
 
 ARG TARGETPLATFORM
 ARG TARGETOS
