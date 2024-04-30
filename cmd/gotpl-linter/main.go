@@ -9,11 +9,15 @@ import (
 	"os"
 )
 
+var (
+	BuildVersion = "development"
+)
+
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	app := internal.NewApp()
+	app := internal.NewApp(BuildVersion)
 	app.Commands = []*cli.Command{
 		command.FormatCommand{}.Command(),
 		command.LintCommand{}.Command(),

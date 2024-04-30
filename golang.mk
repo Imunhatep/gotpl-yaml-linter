@@ -6,7 +6,8 @@ BUILD_VERSION=$(shell git describe --always --dirty --tags | tr '-' '.' )
 BUILD_DATE=$(shell LC_ALL=C date)
 BUILD_HASH=$(shell git rev-parse HEAD)
 
-BUILD_XDST=$(NAME)
+#BUILD_XDST=$(NAME)
+BUILD_XDST=main
 BUILD_FLAGS=-ldflags "\
 	$(ADDITIONAL_LDFLAGS) -s -w \
 	-X '$(BUILD_XDST).BuildVersion=$(BUILD_VERSION)' \

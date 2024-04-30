@@ -20,22 +20,26 @@ Linter tool supports to commands:
 gotpl-yaml-linter help
 
 NAME:
-   yamltpl_linter - GoLang template for yaml formatting and linting tool
+   gotpl-linter - GoLang template for yaml formatting and linting tool
 
 USAGE:
-   bin/yamltpl_linter_{os}-{arch} [command] [subcommand] [command options]
+   gotpl-linter [command] [subcommand] [command options]
+
+VERSION:
+   v1.2.0
 
 DESCRIPTION:
    https://github.com/imunhatep/gotpl-yaml-linter/README.md
 
 COMMANDS:
    fmt      yaml tpl format
-   lint     yaml tpl linting
+   lint     yaml gotpl linting
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --verbose value, -v value  Log verbosity (default: 3) [$APP_DEBUG]
-   --help, -h                 show help
+   --verbose value, --vv value  Log verbosity (default: 3) [$APP_DEBUG]
+   --help, -h                   show help
+   --version, -v                print the version
 ```
 
 
@@ -49,7 +53,7 @@ NAME:
    yamltpl_linter lint - yaml tpl linting
 
 USAGE:
-   Example: bin/yamltpl_{os}-{arch} -v 10 lint --path ./templates/ --filter *.yaml
+   Example: bin/yamltpl_{os}-{arch} -vv 10 lint -p ./templates/ -f *.yaml
 
 OPTIONS:
    --path value, -p value    path to go tpl files (default: ./)
@@ -63,13 +67,13 @@ OPTIONS:
 Executing format command will update file contents in place.
 
 ```bash
-gotpl-yaml-linter fmt help
+gotpl-linter fmt help
 
 NAME:
-   yamltpl_linter fmt - yaml tpl format
+   gotpl-linter fmt - yaml tpl format
 
 USAGE:
-   Example: bin/yamltpl_{os}-{arch} -v 10 fmt --path ./templates/ --filter *.yaml
+   Example: gotpl-linter -vv 10 fmt -p ./templates/ -f *.yaml
 
 OPTIONS:
    --path value, -p value    path to go tpl files (default: ./)

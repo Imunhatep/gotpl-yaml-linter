@@ -8,12 +8,13 @@ import (
 )
 
 // NewApp application entrypoint
-func NewApp() *cli.App {
+func NewApp(version string) *cli.App {
 	cmd := cli.NewApp()
 	cmd.EnableBashCompletion = true
-	cmd.Name = "gotpl_linter"
+	cmd.Version = version
+	cmd.Name = "gotpl-linter"
 	cmd.Usage = "GoLang template for yaml formatting and linting tool"
-	cmd.UsageText = "gotpl_linter [command] [subcommand] [command options]"
+	cmd.UsageText = "gotpl-linter [command] [subcommand] [command options]"
 	cmd.Description = "https://github.com/imunhatep/gotpl-yaml-linter/README.md"
 	cmd.Before = func(ctx *cli.Context) error {
 		verbose := ctx.Int("verbose")
@@ -24,7 +25,7 @@ func NewApp() *cli.App {
 	cmd.Flags = []cli.Flag{
 		&cli.IntFlag{
 			Name:     "verbose",
-			Aliases:  []string{"v"},
+			Aliases:  []string{"vv"},
 			EnvVars:  []string{"APP_DEBUG"},
 			Usage:    "Log verbosity",
 			Required: false,
