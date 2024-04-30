@@ -9,29 +9,9 @@ import (
 )
 
 var controlStructureStart = regexp.MustCompile(`^{{-?\s*(if|range|with|define)\s`)
+var controlStructureContinue = regexp.MustCompile(`^{{-?\s*(else)\s`)
 var controlStructureEnd = regexp.MustCompile(`^{{-?\s*end\s*-?}}`)
 var nonControlStructure = regexp.MustCompile(`^{{-?\s*(include|toYaml|nindent)\s`)
-
-func formatLine(line string, indentLevel int) string {
-	// Remove leading spaces to reset indentation
-	trimmedLine := strings.TrimLeft(line, " ")
-	return strings.Repeat("  ", indentLevel) + trimmedLine
-}
-
-func isStartControlStructure(line string) bool {
-	lineWithoutLeadingSpaces := strings.TrimSpace(line)
-	return controlStructureStart.MatchString(lineWithoutLeadingSpaces)
-}
-
-func isEndControlStructure(line string) bool {
-	lineWithoutLeadingSpaces := strings.TrimSpace(line)
-	return controlStructureEnd.MatchString(lineWithoutLeadingSpaces)
-}
-
-func isNonControlStructure(line string) bool {
-	lineWithoutLeadingSpaces := strings.TrimSpace(line)
-	return nonControlStructure.MatchString(lineWithoutLeadingSpaces)
-}
 
 // FormatYamlTpl formats a yaml template string
 func FormatYamlTpl(yamlTpl string) (string, error) {
@@ -44,6 +24,8 @@ func FormatYamlTpl(yamlTpl string) (string, error) {
 		if isStartControlStructure(trimmed) {
 			formattedLines = append(formattedLines, formatLine(line, indentLevel))
 			indentLevel++
+		} else if isContinueControlStructure(trimmed) {
+			formattedLines = append(formattedLines, formatLine(line, indentLevel-1))
 		} else if isNonControlStructure(trimmed) {
 			// Non-control structures and empty lines are indented according to their current block level
 			formattedLines = append(formattedLines, formatLine(line, indentLevel))
@@ -103,4 +85,30 @@ func FormatYamlTplFile(file string, format, output bool) (bool, error) {
 	log.Info().Str("file", file).Msg("linted")
 
 	return true, nil
+}
+
+func formatLine(line string, indentLevel int) string {
+	// Remove leading spaces to reset indentation
+	trimmedLine := strings.TrimLeft(line, " ")
+	return strings.Repeat("  ", indentLevel) + trimmedLine
+}
+
+func isStartControlStructure(line string) bool {
+	lineWithoutLeadingSpaces := strings.TrimSpace(line)
+	return controlStructureStart.MatchString(lineWithoutLeadingSpaces)
+}
+
+func isContinueControlStructure(line string) bool {
+	lineWithoutLeadingSpaces := strings.TrimSpace(line)
+	return controlStructureContinue.MatchString(lineWithoutLeadingSpaces)
+}
+
+func isEndControlStructure(line string) bool {
+	lineWithoutLeadingSpaces := strings.TrimSpace(line)
+	return controlStructureEnd.MatchString(lineWithoutLeadingSpaces)
+}
+
+func isNonControlStructure(line string) bool {
+	lineWithoutLeadingSpaces := strings.TrimSpace(line)
+	return nonControlStructure.MatchString(lineWithoutLeadingSpaces)
 }
